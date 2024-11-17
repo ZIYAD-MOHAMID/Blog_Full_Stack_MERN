@@ -46,7 +46,6 @@ const PostSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
 //Populate Comment For this Post
 PostSchema.virtual("comments", {
   ref: "Comment",
@@ -66,7 +65,6 @@ function validateCreatePost(obj) {
   });
   return scheme.validate(obj);
 }
-
 //vaildate Update Post
 function validateUpdatePost(obj) {
   const schema = Joi.object({

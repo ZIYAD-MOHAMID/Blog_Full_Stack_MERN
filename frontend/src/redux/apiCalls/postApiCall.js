@@ -1,6 +1,6 @@
 import request from "../../utils/request";
-import { toast } from "react-toastify";
 import { postActions } from "../slices/postSlice";
+import { toast } from "react-toastify";
 
 //Fetch Posts Based on Page Number
 export function fetchPosts(pageNumber) {

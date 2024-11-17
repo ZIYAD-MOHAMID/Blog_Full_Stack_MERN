@@ -18,12 +18,9 @@ const { Post } = require("../models/Post");
  * @access  private (only admin)
  ------------------------------------------*/
 module.exports.getAllUsersCtrl = asyncHandler(async (req, res) => {
-  //   console.log(req.headers.authorization.split(" ")[1]);
-
   const users = await User.find().select("-password").populate("posts");
   res.status(200).json(users);
 });
-
 /**------------------------------------------
  * @desc    Get User Profile
  * @router  /api/users/profile/:id
@@ -39,7 +36,6 @@ module.exports.getUserProfileCtrl = asyncHandler(async (req, res) => {
   }
   res.status(200).json(user);
 });
-
 /**------------------------------------------
  * @desc    Update User Profile
  * @router  /api/users/profile/:id
@@ -71,7 +67,6 @@ module.exports.updateUserProfileCtrl = asyncHandler(async (req, res) => {
     .populate("posts");
   res.status(200).json(updatesUser);
 });
-
 /**------------------------------------------
  * @desc    Get Users Count
  * @router  /api/users/count
@@ -82,7 +77,6 @@ module.exports.getUsersCountCtrl = asyncHandler(async (req, res) => {
   const count = await User.countDocuments();
   res.status(200).json(count);
 });
-
 /**------------------------------------------
  * @desc    Profile Photo Upload
  * @router  /api/users/profile/profile-photo-upload
@@ -142,10 +136,10 @@ module.exports.deleteUserProfileCtrl = asyncHandler(async (req, res) => {
   //2, Get all posts from DB
   const posts = await Post.find({ user: user._id });
 
-  //3,Get the public ids from the posts
+  //3, Get the public ids from the posts
   const publicIds = posts?.map((post) => post.image.publicId);
 
-  //4Delete all posts image from cloudinary that belong to this user
+  //4, Delete all posts image from cloudinary that belong to this user
   if (publicIds?.length > 0) {
     await cloidinaryRemoveImages(publicIds);
   }
@@ -155,7 +149,7 @@ module.exports.deleteUserProfileCtrl = asyncHandler(async (req, res) => {
     await cloidinaryRemoveImage(user.profilePhoto.publicId);
   }
 
-  //6,- Delete user posts & comments
+  //6, Delete user posts & comments
   await Post.deleteMany({ user: user._id });
   await Comment.deleteMany({ user: user._id });
 

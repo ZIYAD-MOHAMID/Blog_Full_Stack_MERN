@@ -4,7 +4,6 @@ const {
   User,
   validateRegisterUser,
   validateLoginUser,
-  generateAuthToken,
 } = require("../models/User");
 const { VerificationToken } = require("../models/VerificationToken");
 const crypto = require("crypto");
@@ -48,9 +47,6 @@ module.exports.registerUserCtrl = asyncHandler(async (req, res) => {
   await verifictionToken.save();
 
   // 2. Making the link
-  // const link = `
-  // ${process.env.CLIENT_DOMAIN}/users/${user._id}/verify/${verifictionToken.token}
-  // `;
   const link = `
   http://localhost:3000/users/${user._id}/verify/${verifictionToken.token}
   `;
@@ -73,7 +69,7 @@ module.exports.registerUserCtrl = asyncHandler(async (req, res) => {
 });
 
 /**------------------------------------------
- * @desc    LogIn User - Sing Up
+ * @desc    LogIn User - Sing In
  * @router  /api/auth/login
  * @method  POST
  * @access  public
@@ -115,7 +111,6 @@ module.exports.loginUserCtrl = asyncHandler(async (req, res) => {
     }
 
     const link = `http://localhost:3000/users/${user._id}/verify/${verificationToken.token}`;
-    // const link = `${process.env.CLIENT_DOMAIN}/users/${user._id}/verify/${verificationToken.token}`;
 
     const htmlTemplate = `
     <div>

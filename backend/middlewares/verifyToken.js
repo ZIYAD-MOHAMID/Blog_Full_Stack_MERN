@@ -18,7 +18,6 @@ function verifyToken(req, res, next) {
       .json({ message: "no token provided, access denied" });
   }
 }
-
 //Verify Tokrn & Admin
 function verifyTokenAndAdmin(req, res, next) {
   verifyToken(req, res, () => {
@@ -29,7 +28,6 @@ function verifyTokenAndAdmin(req, res, next) {
     }
   });
 }
-
 //Verify Tokrn & Only User Himself
 function verifyTokenAndOnlyUsrt(req, res, next) {
   verifyToken(req, res, () => {
@@ -42,8 +40,7 @@ function verifyTokenAndOnlyUsrt(req, res, next) {
     }
   });
 }
-
-//Verify Tokrn & Authorization
+//Verify Tokrn & Authorization(Admin AND User)
 function verifyTokenAndAuthorization(req, res, next) {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {

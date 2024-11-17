@@ -39,7 +39,6 @@ function validateCreateComment(obj) {
   });
   return schema.validate(obj);
 }
-
 //Validate Update Comment
 function validateUpdateComment(obj) {
   const schema = Joi.object({

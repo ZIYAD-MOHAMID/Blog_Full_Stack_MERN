@@ -52,7 +52,6 @@ module.exports.createPostCtrl = asyncHandler(async (req, res) => {
   //6. Remove image from the server
   fs.unlinkSync(imagePath);
 });
-
 /**------------------------------------------
  * @desc    Get All Posts
  * @router  /api/posts
@@ -80,7 +79,6 @@ module.exports.getAllPostsCtrl = asyncHandler(async (req, res) => {
   }
   res.status(200).json(posts);
 });
-
 /**------------------------------------------
  * @desc    Get single Post
  * @router  /api/posts\:id
@@ -97,7 +95,6 @@ module.exports.getSinglePostCtrl = asyncHandler(async (req, res) => {
 
   res.status(200).json(post);
 });
-
 /**------------------------------------------
  * @desc    Get All Post count
  * @router  /api/posts/count
@@ -106,7 +103,6 @@ module.exports.getSinglePostCtrl = asyncHandler(async (req, res) => {
  ------------------------------------------*/
 module.exports.getPostCountCtrl = asyncHandler(async (req, res) => {
   const posts = await Post.countDocuments();
-
   res.status(200).json(posts);
 });
 

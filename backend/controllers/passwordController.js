@@ -37,7 +37,6 @@ module.exports.sendResetPasswordLinkCtrl = asyncHandler(async (req, res) => {
   }
 
   // 4. Creating link
-  // ${process.env.CLTENT_DOMAIN}/reset-password/${user._id}/${verificationToken.token}
   let link = `
   http://localhost:3000/reset-password/${user._id}/${verificationToken.token}
   `;
@@ -108,7 +107,8 @@ module.exports.resetPasswordCtrl = asyncHandler(async (req, res) => {
 
   user.password = hashedPassword;
   await user.save();
-  await verificationToken.remove();
+  // await verificationToken.remove()
+  await VerificationToken.deleteOne({ verificationToken });
 
   res
     .status(200)

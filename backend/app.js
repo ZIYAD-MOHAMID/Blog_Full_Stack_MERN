@@ -3,6 +3,7 @@ const xss = require("xss-clean");
 const rateLimiting = require("express-rate-limit");
 const helmet = require("helmet");
 const hpp = require("hpp");
+
 const connectToDB = require("./config/connectToDB");
 const { errorHandler, notFound } = require("./middlewares/error");
 const cors = require("cors"); // to make F & B work togather
@@ -27,12 +28,12 @@ app.use(hpp());
 app.use(xss());
 
 // Rate Limiting
-// app.use(
-//   rateLimiting({
-//     windowMs: 10 * 60 * 1000, // 10 Min
-//     max: 200,
-//   })
-// );
+app.use(
+  rateLimiting({
+    windowMs: 10 * 60 * 1000, // 10 Min
+    max: 200,
+  })
+);
 
 //Cors Policy
 app.use(

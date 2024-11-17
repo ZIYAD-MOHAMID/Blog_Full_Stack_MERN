@@ -71,7 +71,6 @@ UserSchema.methods.generateAuthToken = function () {
 
 // User Model
 const User = mongoose.model("User", UserSchema);
-
 // Validat Register User
 function validateRegisterUser(obj) {
   const schema = Joi.object({
@@ -81,16 +80,14 @@ function validateRegisterUser(obj) {
   });
   return schema.validate(obj);
 }
-
 //Validat Login User
 function validateLoginUser(obj) {
   const schema = Joi.object({
     email: Joi.string().trim().min(5).max(100).required().email(),
-    password: Joi.string().trim().min(8).required(),
+    password: passwordComplexity().required(),
   });
   return schema.validate(obj);
 }
-
 //Validat Update User
 function validateUpdateUser(obj) {
   const schema = Joi.object({
@@ -100,7 +97,6 @@ function validateUpdateUser(obj) {
   });
   return schema.validate(obj);
 }
-
 // Validat Email
 function validateEmail(obj) {
   const schema = Joi.object({
@@ -108,7 +104,6 @@ function validateEmail(obj) {
   });
   return schema.validate(obj);
 }
-
 //Validat New Password
 function validateNewPassword(obj) {
   const schema = Joi.object({
